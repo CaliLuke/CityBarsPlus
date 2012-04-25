@@ -1,0 +1,75 @@
+{
+    "id": "ExtBox1-ext-gen4176",
+    "type": "controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Search"
+    },
+    "customConfigs": [],
+    "designerId": "31e602a6-661c-469a-8569-52b539d60e8d",
+    "$viewOrder": 1,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen4871",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onInputCategoryKeyup",
+                "implHandler": "if(Ext.getCmp('inputCategory').getValue().length>0 && Ext.getCmp('inputCity').getValue().length>0){\n    Ext.getCmp('searchButton').enable();\n} else {\n    Ext.getCmp('searchButton').disable();\n}",
+                "name": "keyup",
+                "designer|targetType": "Ext.field.Text",
+                "designer|controlQuery": "textfield",
+                "designer|userClassName": "onInputCategoryKeyup"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen5158",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onInputCategoryClearicontap",
+                "implHandler": "Ext.getCmp('searchButton').disable();\n",
+                "name": "clearicontap",
+                "designer|targetType": "Ext.field.Text",
+                "designer|controlQuery": "textfield",
+                "designer|userClassName": "onInputCategoryClearicontap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen6530",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onButtonTap",
+                "implHandler": "var me = this; \n\nvar business = me.getApplication().getController('Business');\n\n//Ext.Viewport.remove(Ext.Viewport.getActiveItem(), true);\nExt.Viewport.add(business.getMainNav());\nExt.Viewport.setActiveItem(1);\n\nExt.Viewport.setMasked({ message: 'Loading...' });\n// get the location, then...\n\n/*\nme.getLocation(function (location) {\n\n// then use Yelp to get the businesses\n\nme.getBusinesses(location, function (store) {\n\n    // then bind data to list and show it\n\n    me.getDataList().setStore(store);\n    Ext.Viewport.setMasked(false);\n});\n});\n\n*/\n\nCityBarsPlus.Init.city = Ext.getCmp('inputCity').getValue();\nCityBarsPlus.Init.term = Ext.getCmp('inputCategory').getValue();\n\n//Ext.getCmp('yelpToolbar').setTitle('Please wait...');\n\nvar store = Ext.data.StoreManager.lookup('BusinessStore');\n\nif(!Ext.getCmp('dataList').getStore()){\nExt.getCmp('dataList').setStore(store);\n} else {\nExt.getCmp('dataList').getStore().removeAll();\n}\n\n//re-do removeAll later\n\n\nExt.getCmp('dataList').getStore().load({\nparams:{\n    ywsid:CityBarsPlus.Init.apiKey,\n    term:CityBarsPlus.Init.term,\n    location:CityBarsPlus.Init.city\n}\n});\n\nExt.Viewport.setMasked(false);\n\n/*                            \nif (YelpTouch.Init.city && YelpTouch.Init.term) {                                                              \nthis.setActiveItem(1);}\n*/",
+                "name": "tap",
+                "designer|targetType": "Ext.Button",
+                "designer|controlQuery": "#searchButton",
+                "designer|userClassName": "onButtonTap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}

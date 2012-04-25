@@ -1,0 +1,52 @@
+{
+    "id": "ExtBox1-ext-gen2208",
+    "type": "application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "Business"
+        ],
+        "stores": [
+            "BusinessStore"
+        ],
+        "views": [
+            "MainNav",
+            "ListContainer",
+            "DetailPanel",
+            "searchForm"
+        ],
+        "name": "CityBarsPlus",
+        "controllers": [
+            "Business",
+            "Search"
+        ]
+    },
+    "customConfigs": [],
+    "designerId": "application",
+    "$viewOrder": 0,
+    "iconCls": "icon-application",
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen18218",
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "launch",
+                "implHandler": "CityBarsPlus.Init = {};\n\n// NOTE ABOUT YELP KEY\n// You must use your own yelp key, available by registering (for free) with Yelp:\n// http://www.yelp.com/developers/getting_started/api_overview\n// (in this app, we use the Review Search API v1.0)\n\nCityBarsPlus.Init.apiKey = '/* Yelp API key goes here */';\nCityBarsPlus.Init.term='';\nCityBarsPlus.Init.city='';",
+                "designer|userClassName": "launch"
+            },
+            "customConfigs": [],
+            "iconCls": "icon-basic-function",
+            "expanded": true
+        }
+    ]
+}

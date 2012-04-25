@@ -1,0 +1,37 @@
+{
+    "id": "ExtBox1-ext-gen3134",
+    "type": "container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "layout": "fit",
+        "designer|userClassName": "ListContainer",
+        "designer|userAlias": "listcontainer"
+    },
+    "customConfigs": [],
+    "designerId": "0d4f3634-fe4c-46b4-82d2-97b600ec7be3",
+    "$viewOrder": 2,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen3444",
+            "type": "list",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "dataList",
+                "itemTpl": "<img class=\"photo\" src=\"{photo_url}\" width=\"40\" height=\"40\"/>{name}<br/><img src=\"{rating_img_url_small}\"/>&nbsp;<small>{address1}</small>",
+                "store": null,
+                "designer|userClassName": "MyList"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}

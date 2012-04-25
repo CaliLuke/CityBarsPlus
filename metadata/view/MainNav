@@ -1,0 +1,95 @@
+{
+    "id": "ExtBox1-ext-gen2805",
+    "type": "navigationview",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "mainnav",
+        "designer|userClassName": "MainNav",
+        "designer|userAlias": "mainnav",
+        "container|animation": null
+    },
+    "customConfigs": [],
+    "designerId": "b7340641-b7b1-4104-b24d-3d7be6fbf25a",
+    "$viewOrder": 1,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen12248",
+            "type": "navigationbar",
+            "reference": {
+                "name": "navigationBar",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ui": "light",
+                "designer|userClassName": "MyNavigationBar"
+            },
+            "customConfigs": [],
+            "iconCls": "icon-navbar",
+            "expanded": true,
+            "cn": [
+                {
+                    "id": "ExtBox1-ext-gen9063",
+                    "type": "button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "logOut",
+                        "itemId": "logOut",
+                        "iconCls": "delete",
+                        "iconMask": true,
+                        "text": "",
+                        "designer|userClassName": "MyButton3",
+                        "align": "right"
+                    },
+                    "customConfigs": [],
+                    "expanded": true,
+                    "cn": [
+                        {
+                            "id": "ExtBox1-ext-gen10831",
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onLogOutTap",
+                                "implHandler": "Ext.getCmp('mainnav').reset();\nExt.Viewport.setActiveItem(0);",
+                                "name": "tap",
+                                "designer|userClassName": "onLogOutTap"
+                            },
+                            "customConfigs": [],
+                            "expanded": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ExtBox1-ext-gen3755",
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": null,
+                "title": "City Bars"
+            },
+            "customConfigs": [],
+            "iconCls": "icon-linkedinstance",
+            "expanded": true,
+            "masterInstanceId": "ExtBox1-ext-gen3134"
+        }
+    ]
+}

@@ -1,0 +1,103 @@
+{
+    "id": "ExtBox1-ext-gen7684",
+    "type": "controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Business"
+    },
+    "customConfigs": [],
+    "designerId": "30543567-45e5-4614-b6aa-6ae86e2841df",
+    "$viewOrder": 0,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen3520",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "dataList",
+                "selector": "#dataList",
+                "designer|userClassName": "dataList"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen3793",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "listCard",
+                "selector": "#listCard",
+                "designer|userClassName": "listCard"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen3966",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "mainNav",
+                "selector": "mainnav",
+                "xtype": "mainnav",
+                "autoCreate": true,
+                "designer|userClassName": "mainNav"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen4139",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "detailCard",
+                "selector": "#detailCard",
+                "designer|userClassName": "detailCard"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen6646",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onListItemTap",
+                "implHandler": "var me = this, map, lat, long, loc, marker, info, details;\nif (record) {\n    details = Ext.create('CityBarsPlus.view.DetailPanel', {\n        title: 'Details'\n    });\n\n    // set the map\n    map = details.child('#detailMap');\n    lat = record.get('latitude');\n    long = record.get('longitude');\n\n    map.setMapOptions({\n        zoom: 18\n    });\n\n    map.setMapCenter({\n        latitude: lat,\n        longitude: long\n    });\n\n    // set the info\n    info = details.child('#contact').child('#info');\n    info.child('#photo').setData(record.data);\n    info.child('#data').setData(record.data);\n\n    me.getMainNav().push(details);\n}",
+                "name": "itemtap",
+                "designer|targetType": "Ext.dataview.List",
+                "designer|controlQuery": "#dataList",
+                "designer|userClassName": "onListItemTap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}
