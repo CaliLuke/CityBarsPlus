@@ -70,6 +70,25 @@
             },
             "customConfigs": [],
             "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen10568",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onComponentInitialize",
+                "implHandler": "if(navigator.geolocation){\n    \n    Ext.getCmp('inputCity').setValue('Loading...');\n    \n    navigator.geolocation.getCurrentPosition(function(pos) {\n        var lat = pos.coords.latitude;\n        var long = pos.coords.longitude;\n        var geocoder = new google.maps.Geocoder();\n        var latlng = new google.maps.LatLng(lat, long);\n        var city = '';\n        var region = '';\n        \n        geocoder.geocode({'latLng': latlng}, function(results, status) {\n          if (status == google.maps.GeocoderStatus.OK) {\n              console.log(results);\n              if(results.length > 0) {\n                  city = results[0].address_components[2].short_name;\n                  region = results[0].address_components[4].short_name;\n                  console.log(city, region);\n                  Ext.getCmp('inputCity').setValue(city+', '+region);\n              }\n          } else {\n              alert(\"Could not get your location... sorry!\");\n              Ext.getCmp('inputCity').setValue('');\n          }\n        });\n    });\n}",
+                "name": "initialize",
+                "designer|targetType": "Ext.Component",
+                "designer|controlQuery": "#inputCity",
+                "designer|userClassName": "onComponentInitialize"
+            },
+            "customConfigs": [],
+            "expanded": true
         }
     ]
 }
