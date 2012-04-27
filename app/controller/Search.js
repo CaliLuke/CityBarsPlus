@@ -23,6 +23,9 @@ Ext.define('CityBarsPlus.controller.Search', {
             },
             "#searchButton": {
                 tap: 'onButtonTap'
+            },
+            "#inputCity": {
+                initialize: 'onComponentInitialize'
             }
         }
     },
@@ -98,6 +101,37 @@ Ext.define('CityBarsPlus.controller.Search', {
     if (YelpTouch.Init.city && YelpTouch.Init.term) {                                                              
     this.setActiveItem(1);}
     */
+    },
+
+    onComponentInitialize: function(component, options) {
+        if(navigator.geolocation){
+
+            Ext.getCmp('inputCity').setValue('Loading...');
+
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                var lat = pos.coords.latitude;
+                var long = pos.coords.longitude;
+                var geocoder = new google.maps.Geocoder();
+                var latlng = new google.maps.LatLng(lat, long);
+                var city = '';
+                var region = '';
+
+                geocoder.geocode({'latLng': latlng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results);
+                    if(results.length > 0) {
+                        city = results[0].address_components[2].short_name;
+                        region = results[0].address_components[4].short_name;
+                        console.log(city, region);
+                        Ext.getCmp('inputCity').setValue(city+', '+region);
+                    }
+                } else {
+                    alert("Could not get your location... sorry!");
+                    Ext.getCmp('inputCity').setValue('');
+                }
+            });
+        });
+    }
     }
 
 });
