@@ -62,30 +62,11 @@
             "codeClass": null,
             "userConfig": {
                 "fn": "onButtonTap",
-                "implHandler": "var me = this; \n\nvar business = me.getApplication().getController('Business');\n\n//Ext.Viewport.remove(Ext.Viewport.getActiveItem(), true);\nExt.Viewport.add(business.getMainNav());\nExt.Viewport.setActiveItem(1);\n\nExt.Viewport.setMasked({ message: 'Loading...' });\n// get the location, then...\n\n/*\nme.getLocation(function (location) {\n\n// then use Yelp to get the businesses\n\nme.getBusinesses(location, function (store) {\n\n    // then bind data to list and show it\n\n    me.getDataList().setStore(store);\n    Ext.Viewport.setMasked(false);\n});\n});\n\n*/\n\nCityBarsPlus.Init.city = Ext.getCmp('inputCity').getValue();\nCityBarsPlus.Init.term = Ext.getCmp('inputCategory').getValue();\n\n//Ext.getCmp('yelpToolbar').setTitle('Please wait...');\n\nvar store = Ext.data.StoreManager.lookup('BusinessStore');\n\nif(!Ext.getCmp('dataList').getStore()){\nExt.getCmp('dataList').setStore(store);\n} else {\nExt.getCmp('dataList').getStore().removeAll();\n}\n\n//re-do removeAll later\n\n\nExt.getCmp('dataList').getStore().load({\nparams:{\n    ywsid:CityBarsPlus.Init.apiKey,\n    term:CityBarsPlus.Init.term,\n    location:CityBarsPlus.Init.city\n}\n});\n\nExt.Viewport.setMasked(false);\n\n/*                            \nif (YelpTouch.Init.city && YelpTouch.Init.term) {                                                              \nthis.setActiveItem(1);}\n*/",
+                "implHandler": "var me = this;\nvar business = me.getApplication().getController('Business');\n\nExt.Viewport.add(business.getMainNav());\nExt.Viewport.setActiveItem(1);\n\nExt.Viewport.setMasked({ message: 'Loading...' });\n// get the location, then...\n\nCityBarsPlus.Init.city = Ext.getCmp('inputCity').getValue();\nCityBarsPlus.Init.term = Ext.getCmp('inputCategory').getValue();\n\n//Ext.getCmp('yelpToolbar').setTitle('Please wait...');\n\nvar store = Ext.data.StoreManager.lookup('BusinessStore');\n\nif(!Ext.getCmp('dataList').getStore()){\nExt.getCmp('dataList').setStore(store);\n} else {\nExt.getCmp('dataList').getStore().removeAll();\n}\n\n//re-do removeAll later\n\nExt.getCmp('dataList').getStore().load({\nparams:{\n    ywsid:CityBarsPlus.Init.apiKey,\n    term:CityBarsPlus.Init.term,\n    location:CityBarsPlus.Init.city\n}\n});\n\nExt.Viewport.setMasked(false);",
                 "name": "tap",
                 "designer|targetType": "Ext.Button",
                 "designer|controlQuery": "#searchButton",
                 "designer|userClassName": "onButtonTap"
-            },
-            "customConfigs": [],
-            "expanded": true
-        },
-        {
-            "id": "ExtBox1-ext-gen10568",
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onComponentInitialize",
-                "implHandler": "if(navigator.geolocation){\n    \n    Ext.getCmp('inputCity').setValue('Loading...');\n    \n    navigator.geolocation.getCurrentPosition(function(pos) {\n        var lat = pos.coords.latitude;\n        var long = pos.coords.longitude;\n        var geocoder = new google.maps.Geocoder();\n        var latlng = new google.maps.LatLng(lat, long);\n        var city = '';\n        var region = '';\n        \n        geocoder.geocode({'latLng': latlng}, function(results, status) {\n          if (status == google.maps.GeocoderStatus.OK) {\n              console.log(results);\n              if(results.length > 0) {\n                  city = results[0].address_components[2].short_name;\n                  region = results[0].address_components[4].short_name;\n                  console.log(city, region);\n                  Ext.getCmp('inputCity').setValue(city+', '+region);\n              }\n          } else {\n              alert(\"Could not get your location... sorry!\");\n              Ext.getCmp('inputCity').setValue('');\n          }\n        });\n    });\n}",
-                "name": "initialize",
-                "designer|targetType": "Ext.Component",
-                "designer|controlQuery": "#inputCity",
-                "designer|userClassName": "onComponentInitialize"
             },
             "customConfigs": [],
             "expanded": true

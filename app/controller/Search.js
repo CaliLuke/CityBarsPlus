@@ -23,9 +23,6 @@ Ext.define('CityBarsPlus.controller.Search', {
             },
             "#searchButton": {
                 tap: 'onButtonTap'
-            },
-            "#inputCity": {
-                initialize: 'onComponentInitialize'
             }
         }
     },
@@ -44,94 +41,39 @@ Ext.define('CityBarsPlus.controller.Search', {
     },
 
     onButtonTap: function(button, e, options) {
-        var me = this; 
-
+        var me = this;
         var business = me.getApplication().getController('Business');
 
-        //Ext.Viewport.remove(Ext.Viewport.getActiveItem(), true);
         Ext.Viewport.add(business.getMainNav());
         Ext.Viewport.setActiveItem(1);
 
         Ext.Viewport.setMasked({ message: 'Loading...' });
         // get the location, then...
 
-        /*
-        me.getLocation(function (location) {
+        CityBarsPlus.Init.city = Ext.getCmp('inputCity').getValue();
+        CityBarsPlus.Init.term = Ext.getCmp('inputCategory').getValue();
 
-        // then use Yelp to get the businesses
+        //Ext.getCmp('yelpToolbar').setTitle('Please wait...');
 
-        me.getBusinesses(location, function (store) {
+        var store = Ext.data.StoreManager.lookup('BusinessStore');
 
-            // then bind data to list and show it
-
-            me.getDataList().setStore(store);
-            Ext.Viewport.setMasked(false);
-        });
-    });
-
-    */
-
-    CityBarsPlus.Init.city = Ext.getCmp('inputCity').getValue();
-    CityBarsPlus.Init.term = Ext.getCmp('inputCategory').getValue();
-
-    //Ext.getCmp('yelpToolbar').setTitle('Please wait...');
-
-    var store = Ext.data.StoreManager.lookup('BusinessStore');
-
-    if(!Ext.getCmp('dataList').getStore()){
-        Ext.getCmp('dataList').setStore(store);
-    } else {
-        Ext.getCmp('dataList').getStore().removeAll();
-    }
-
-    //re-do removeAll later
-
-
-    Ext.getCmp('dataList').getStore().load({
-        params:{
-            ywsid:CityBarsPlus.Init.apiKey,
-            term:CityBarsPlus.Init.term,
-            location:CityBarsPlus.Init.city
+        if(!Ext.getCmp('dataList').getStore()){
+            Ext.getCmp('dataList').setStore(store);
+        } else {
+            Ext.getCmp('dataList').getStore().removeAll();
         }
-    });
 
-    Ext.Viewport.setMasked(false);
+        //re-do removeAll later
 
-    /*                            
-    if (YelpTouch.Init.city && YelpTouch.Init.term) {                                                              
-    this.setActiveItem(1);}
-    */
-    },
-
-    onComponentInitialize: function(component, options) {
-        if(navigator.geolocation){
-
-            Ext.getCmp('inputCity').setValue('Loading...');
-
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                var lat = pos.coords.latitude;
-                var long = pos.coords.longitude;
-                var geocoder = new google.maps.Geocoder();
-                var latlng = new google.maps.LatLng(lat, long);
-                var city = '';
-                var region = '';
-
-                geocoder.geocode({'latLng': latlng}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    console.log(results);
-                    if(results.length > 0) {
-                        city = results[0].address_components[2].short_name;
-                        region = results[0].address_components[4].short_name;
-                        console.log(city, region);
-                        Ext.getCmp('inputCity').setValue(city+', '+region);
-                    }
-                } else {
-                    alert("Could not get your location... sorry!");
-                    Ext.getCmp('inputCity').setValue('');
-                }
-            });
+        Ext.getCmp('dataList').getStore().load({
+            params:{
+                ywsid:CityBarsPlus.Init.apiKey,
+                term:CityBarsPlus.Init.term,
+                location:CityBarsPlus.Init.city
+            }
         });
-    }
+
+        Ext.Viewport.setMasked(false);
     }
 
 });

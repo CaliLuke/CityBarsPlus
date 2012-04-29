@@ -103,6 +103,64 @@
                     },
                     "customConfigs": [],
                     "expanded": true
+                },
+                {
+                    "id": "ExtBox1-ext-gen3715",
+                    "type": "toolbar",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "docked": "top",
+                        "ui": "light",
+                        "title": "City Bars",
+                        "designer|userClassName": "MyToolbar",
+                        "container|pack": "end"
+                    },
+                    "customConfigs": [],
+                    "expanded": true,
+                    "cn": [
+                        {
+                            "id": "ExtBox1-ext-gen3960",
+                            "type": "button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "geoLocate",
+                                "itemId": "mybutton4",
+                                "iconCls": "locate",
+                                "iconMask": true,
+                                "text": "",
+                                "designer|userClassName": "MyButton4"
+                            },
+                            "customConfigs": [],
+                            "expanded": true,
+                            "cn": [
+                                {
+                                    "id": "ExtBox1-ext-gen5786",
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onGeoLocateTap",
+                                        "implHandler": "if(navigator.geolocation){\n\n    Ext.getCmp('inputCity').setValue('Loading...');\n\n    navigator.geolocation.getCurrentPosition(function(pos) {\n        var lat = pos.coords.latitude;\n        var long = pos.coords.longitude;\n        var geocoder = new google.maps.Geocoder();\n        var latlng = new google.maps.LatLng(lat, long);\n        var city = '';\n        var region = '';\n\n        geocoder.geocode({'latLng': latlng}, function(results, status) {\n        if (status == google.maps.GeocoderStatus.OK) {\n            console.log(results);\n            if(results.length > 0) {\n                city = results[0].address_components[2].short_name;\n                region = results[0].address_components[4].short_name;\n                console.log(city, region);\n                Ext.getCmp('inputCity').setValue(city+', '+region);\n            }\n        } else {\n            alert(\"Could not get your location... sorry!\");\n            Ext.getCmp('inputCity').setValue('');\n        }\n    });\n});\n}",
+                                        "name": "tap",
+                                        "designer|userClassName": "onGeoLocateTap"
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }

@@ -53,10 +53,68 @@ Ext.define('CityBarsPlus.view.searchForm', {
                         itemId: 'searchButton',
                         ui: 'confirm',
                         text: 'Search'
+                    },
+                    {
+                        xtype: 'toolbar',
+                        docked: 'top',
+                        ui: 'light',
+                        title: 'City Bars',
+                        layout: {
+                            pack: 'end',
+                            type: 'hbox'
+                        },
+                        items: [
+                            {
+                                xtype: 'button',
+                                id: 'geoLocate',
+                                itemId: 'mybutton4',
+                                iconCls: 'locate',
+                                iconMask: true,
+                                text: ''
+                            }
+                        ]
                     }
                 ]
             }
+        ],
+        listeners: [
+            {
+                fn: 'onGeoLocateTap',
+                event: 'tap',
+                delegate: '#geoLocate'
+            }
         ]
+    },
+
+    onGeoLocateTap: function(button, e, options) {
+        if(navigator.geolocation){
+
+            Ext.getCmp('inputCity').setValue('Loading...');
+
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                var lat = pos.coords.latitude;
+                var long = pos.coords.longitude;
+                var geocoder = new google.maps.Geocoder();
+                var latlng = new google.maps.LatLng(lat, long);
+                var city = '';
+                var region = '';
+
+                geocoder.geocode({'latLng': latlng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results);
+                    if(results.length > 0) {
+                        city = results[0].address_components[2].short_name;
+                        region = results[0].address_components[4].short_name;
+                        console.log(city, region);
+                        Ext.getCmp('inputCity').setValue(city+', '+region);
+                    }
+                } else {
+                    alert("Could not get your location... sorry!");
+                    Ext.getCmp('inputCity').setValue('');
+                }
+            });
+        });
+    }
     }
 
 });
